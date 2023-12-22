@@ -3,7 +3,7 @@ import  * as services from "../services";
 // import { genneralAccessToken} from "../services/JwtService.js";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import uploadCloud from '../upload/uploader.js';
+// import uploadCloud from '../upload/uploader.js';
 dotenv.config()
 
 
@@ -20,7 +20,7 @@ dotenv.config()
 export const createUser = async (req, res) => {
     try {
 
-      
+        // var username=req.body.username
         const { username, numbers, email, avartar, password,confirmPassword} = req.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)

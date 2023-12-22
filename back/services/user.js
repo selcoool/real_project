@@ -178,9 +178,16 @@ export const deleteUser =(req,res)=>new Promise(async(resolve, reject)=>{
 
         const body=req.body;
 
+     
+        const id=req.body.id;
 
 
-        const result = await cloudinary.uploader.destroy(body.public_id);
+
+        const project = await db.User.findOne({ where: { id: id }});
+        const public_id=project.public_id
+    
+
+        const result = await cloudinary.uploader.destroy(public_id);
         
         const response = await db.User.destroy({
             where:{id:body.id}
@@ -212,7 +219,8 @@ export const deleteUser =(req,res)=>new Promise(async(resolve, reject)=>{
 export const updateUser =(req,res)=>new Promise(async(resolve, reject)=>{
     try {
 
-   const body=req.body
+   const dataBody=req.body
+//    console.log("body",{...body})
    const id=req.body.id
    const fileData=req.file
 //    const public_id=req.body.public_id
@@ -242,7 +250,8 @@ export const updateUser =(req,res)=>new Promise(async(resolve, reject)=>{
                                 const publicId = result.public_id;
                                 // console.log('result', result);
                                 // res.json({ fileUrl, publicId });
-                                const body ={...body,avartar:fileUrl,public_id:publicId}
+                                const body ={...dataBody,avartar:fileUrl,public_id:publicId}
+
                                 const response = await db.User.update(body,{
                                     where:{id}
                                     })
