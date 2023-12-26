@@ -88,18 +88,51 @@ export const createUser = async (req, res) => {
 
 }
 
-export const getUsers =async(req,res)=>{
+
+
+export const getOneUser =async(req,res)=>{
     try {
        
        
      
-        const response = await services.getUsers(req.query);
+        const response = await services.getOneUser(req, res);
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+
+    
+}
+
+
+
+
+export const getAllUsers =async(req,res)=>{
+    try {
+       
+       
+     
+        const response = await services.getAllUsers(req, res);
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json(error)
     }
 
 }
+
+
+// export const getUsers =async(req,res)=>{
+//     try {
+       
+       
+     
+//         const response = await services.getUsers(req.query);
+//         return res.status(200).json(response)
+//     } catch (error) {
+//         return res.status(500).json(error)
+//     }
+
+// }
 
 
 

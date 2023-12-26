@@ -22,10 +22,16 @@ import * as UserController from "../controllers/UserController.js";
 
 // router.post('/',uploadCloud.single('avartar'), UserController.createUser)
 
-router.post('/',upload.single('avartar'), UserController.createUser)
-router.get('/',UserController.getUsers)
+router.post('/',upload.array('avartar'), UserController.createUser)
+
+
+router.get('/',UserController.getOneUser)
+router.get('/all',UserController.getAllUsers)
+
+// router.post('/',upload.single('avartar'), UserController.createUser)
+// router.get('/',UserController.getUsers)
 router.delete('/',UserController.deleteUser)
-router.put('/',upload.single('avartar'),UserController.updateUser)
+router.put('/',upload.array('avartar'),UserController.updateUser)
 
 // router.put('/update/:_id',authUserMiddleWare, UserController.updateUser)
 
