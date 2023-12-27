@@ -2,7 +2,7 @@ import express from "express";
 // import uploadCloud from '../upload/uploader.js';
 import { upload, cloudinary } from '../upload_function/multerCloudinary.js';
 const router = express.Router()
-// import {authAdminMiddleWare,authUserMiddleWare,verifyMiddleWare} from "../middlewares/authMiddleware.js"
+import {loginMiddleWare,adminMiddleWare,userMiddleWare} from "../middlewares/authMiddleware.js"
 
 // import { getUser,createUser,updateUser,deleteUser } from "../controllers/UserController.js";
 
@@ -11,27 +11,22 @@ import * as UserController from "../controllers/UserController.js";
 
 
 
-// In ra console để kiểm tra thông tin của req.file
 
-//   if (req.file) {
-//     const fileUrl = req.file.path; // Đối với Cloudinary, path chứa URL của file
-//     res.json({ url: fileUrl });
-//   } else {
-//     res.status(400).json({ error: 'No file uploaded' });
+router.post('/',upload.array('avartar'), UserController.createUser)
+router.get('/',userMiddleWare,UserController.getOneUser)
+router.get('/all',adminMiddleWare,UserController.getAllUsers)
+router.post('/login', UserController.loginUser)
+router.post('/logout', UserController.logoutUser)
+router.post('/refresh_token', UserController.requestRefreshToken)
+
+router.delete('/',userMiddleWare,UserController.deleteUser)
+router.put('/',userMiddleWare,upload.array('avartar'),UserController.updateUser)
 
 
 // router.post('/',uploadCloud.single('avartar'), UserController.createUser)
 
-router.post('/',upload.array('avartar'), UserController.createUser)
-
-
-router.get('/',UserController.getOneUser)
-router.get('/all',UserController.getAllUsers)
-
 // router.post('/',upload.single('avartar'), UserController.createUser)
 // router.get('/',UserController.getUsers)
-router.delete('/',UserController.deleteUser)
-router.put('/',upload.array('avartar'),UserController.updateUser)
 
 // router.put('/update/:_id',authUserMiddleWare, UserController.updateUser)
 

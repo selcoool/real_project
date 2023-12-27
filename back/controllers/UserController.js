@@ -162,6 +162,90 @@ export const deleteUser =async(req,res)=>{
 export const updateUser =async(req,res)=>{
   
     try {
+       
+        // const { username, numbers, email, avartar, password,confirmPassword} = req.body
+
+
+        // const email=req.body?.email
+        // const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+        // const isCheckEmail = reg.test(email)
+
+        // const error=[]
+
+        //  if (!username) {
+        //     error.push({'username':'Vui lòng nhập tên người dùng'})
+        //  }
+        //  if (!numbers ) {
+        
+        //     error.push({'numbers':'Vui lòng nhập số điện thoại'})
+        //  }
+
+        //  if (!email ) {
+
+        //     error.push({'email':'Vui lòng nhập email'})
+        //  }
+
+        // //  if (!avartar ) {
+        // //     error.username='Vui lòng nhập email'
+        // //  }
+
+
+        //  if (!password ) {
+     
+        //     error.push({'password':'Vui lòng nhập mật khẩu'})
+        //  }
+
+
+        //  if (!confirmPassword) {
+         
+        //     error.push({'confirmPassword':'Vui lòng nhập mật khẩu xác nhận'})
+        //  }
+
+
+        //  if(password!==confirmPassword){
+
+        //     error.push({'confirmPassword':'Vui lòng nhập mật khẩu trùng nhau'})
+
+        //  }
+        const error=[]
+         if(req.body.email){
+            const email=req.body.email
+            const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+           const isCheckEmail  = reg.test(email)
+           if(!isCheckEmail){
+            error.push({'email':'Vui lòng nhập email hợp lệ'})
+
+           }
+
+            
+
+         }
+
+        //  console.log('error',error.length)
+
+
+         if(error<=0){
+            const response = await services.updateUser(req,res);
+            return res.status(200).json(response)
+
+
+         }
+         return res.status(404).json(error)
+
+
+       
+        // const response = await services.updateUser(req,res);
+        // return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+
+}
+
+
+export const loginUser =async(req,res)=>{
+  
+    try {
         //  console.log(req.body)
         // const fileData=req.file
        
@@ -175,13 +259,66 @@ export const updateUser =async(req,res)=>{
 
         // } 
        
-        const response = await services.updateUser(req,res);
+        const response = await services.loginUser(req,res);
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json(error)
     }
 
 }
+
+
+
+export const requestRefreshToken =async(req,res)=>{
+  
+    try {
+        //  console.log(req.body)
+        // const fileData=req.file
+       
+        // const {error} = joi.object({id}).validate(req.body)
+        // console.log(error)
+        // if(error){
+
+        //    if(fileData) cloudinary.uploader.destroy(fileData.filename)
+        
+        //    return badRequest(error.details[0]?.message, res)
+
+        // } 
+       
+        const response = await services.requestRefreshToken(req,res);
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+
+}
+
+
+
+export const logoutUser =async(req,res)=>{
+  
+    try {
+        //  console.log(req.body)
+        // const fileData=req.file
+       
+        // const {error} = joi.object({id}).validate(req.body)
+        // console.log(error)
+        // if(error){
+
+        //    if(fileData) cloudinary.uploader.destroy(fileData.filename)
+        
+        //    return badRequest(error.details[0]?.message, res)
+
+        // } 
+       
+        const response = await services.logoutUser(req,res);
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+
+}
+
 
 
 
